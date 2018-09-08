@@ -1,20 +1,176 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nefoftw", "nefoftw\nefoftw.vcxproj", "{701BA136-1BA3-46D2-8780-CB363BB49074}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{701BA136-1BA3-46D2-8780-CB363BB49074}.Debug|Win32.ActiveCfg = Debug|Win32
-		{701BA136-1BA3-46D2-8780-CB363BB49074}.Debug|Win32.Build.0 = Debug|Win32
-		{701BA136-1BA3-46D2-8780-CB363BB49074}.Release|Win32.ActiveCfg = Release|Win32
-		{701BA136-1BA3-46D2-8780-CB363BB49074}.Release|Win32.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-EndGlobal
+﻿/*
+	author: S. M. Shahriar Nirjon
+	last modified: August 8, 2008
+*/
+# include "iGraphics.h"
+
+/* 
+	function iDraw() is called again and again by the system.
+*/
+int st=30;
+int l=3;
+int score=0;
+int r=255;
+int g=0;
+int b=0;
+ int x=0;
+int y=50;
+int xr=100;
+int yr=10;
+int xc=40;
+int yc=300;
+int t=0;
+void iDraw()
+{
+	//place your drawing codes here	
+	iClear();
+	iSetColor(255,255,255);
+	iFilledRectangle(x,y,xr,yr);
+	iSetColor(r,g,b);
+	iFilledCircle(xc,yc,10,1000);
+	iSetColor(102,255,255);
+	iText(400,450,"SCORE:",GLUT_BITMAP_TIMES_ROMAN_10);
+    char str[100];
+    itoa(score,str,10);
+	char game[100];
+	itoa(l,game,10);
+	iText(460,450,str,GLUT_BITMAP_TIMES_ROMAN_10);
+	iText(400,435,"Life:",GLUT_BITMAP_TIMES_ROMAN_10);
+	iText(460,435,game,GLUT_BITMAP_TIMES_ROMAN_10);
+	if(l==0)
+	{   
+	    iText(200,250,"GAME OVER (;",GLUT_BITMAP_TIMES_ROMAN_24);
+		iDelay(5);
+		exit(0);
+	}
+	
+	
+
+
+}
+
+/* 
+	function iMouseMove() is called when the user presses and drags the mouse.
+	(mx, my) is the position where the mouse pointer is.
+*/
+void iMouseMove(int mx, int my)
+{
+	
+}
+
+/* 
+	function iMouse() is called when the user presses/releases the mouse.
+	(mx, my) is the position where the mouse pointer is.
+*/
+void iMouse(int button, int state, int mx, int my)
+{
+             
+}
+
+/*
+	function iKeyboard() is called whenever the user hits a key in keyboard.
+	key- holds the ASCII value of the key pressed. 
+*/
+void iKeyboard(unsigned char key)
+
+{
+   
+
+	//place your codes for other keys here
+}
+
+/*
+	function iSpecialKeyboard() is called whenver user hits special keys like-
+	function keys, home, end, pg up, pg down, arraows etc. you have to use 
+	appropriate constants to detect them. A list is:
+	GLUT_KEY_F1, GLUT_KEY_F2, GLUT_KEY_F3, GLUT_KEY_F4, GLUT_KEY_F5, GLUT_KEY_F6, 
+	GLUT_KEY_F7, GLUT_KEY_F8, GLUT_KEY_F9, GLUT_KEY_F10, GLUT_KEY_F11, GLUT_KEY_F12, 
+	GLUT_KEY_LEFT, GLUT_KEY_UP, GLUT_KEY_RIGHT, GLUT_KEY_DOWN, GLUT_KEY_PAGE UP, 
+	GLUT_KEY_PAGE DOWN, GLUT_KEY_HOME, GLUT_KEY_END, GLUT_KEY_INSERT 
+*/
+void iSpecialKeyboard(unsigned char key)
+{
+
+	
+	 if(key == GLUT_KEY_LEFT)
+	{
+	  
+	   if(score>=10)
+	   {
+		   x=x+120;
+	   }
+		x=x-10;
+		if(x<=0)
+		{
+			x=0;
+		}
+	
+	}
+	else if(key == GLUT_KEY_RIGHT)
+	{  
+		 if(score>=10)
+	   {
+		   x=x-120;
+	   }
+		  x=x+10;
+		  if(x>=400)
+		  {
+			  x=400;
+		  }
+		
+	}
+
+		
+		//place your codes for other keys here
+}
+void change()
+{
+	
+	  if(t==0)
+	  {
+	  yc=yc-5;
+	  if(yc<=70)
+	  {
+		  if(xc>=x&&xc<=x+100)
+		  {
+		  yc=485;
+		  t=1;
+		  score++;
+		  }
+		  else 
+		  { 
+			  score=0;
+			  l--;
+			  yc=485;
+			  t=1;
+		  }
+
+	  }
+	  
+	  }
+	  else 
+	  {
+
+		   r=rand()%255;
+	       g=rand()%255;
+	      b=rand()%255;
+		  xc=(rand()+5)%500;
+		  t=0;
+		  yc=485;
+	  }
+	 
+
+	  
+	  
+
+}
+
+int main()
+{    
+    iSetTimer(st,change);
+     
+	 
+	//place your own initialization codes here. 
+	iInitialize(500,500, "adenial!");
+	return 0;
+}	
